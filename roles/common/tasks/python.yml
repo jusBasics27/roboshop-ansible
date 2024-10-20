@@ -2,10 +2,10 @@
   ansible.builtin.dnf:
     name: "{{ item }}"
     state: installed
-    loop:
-      - python3
-      - gcc
-      - python3-devel
+  loop:
+    - python3
+    - gcc
+    - python3-devel
 
 
 - name: Add App Prerequisites
