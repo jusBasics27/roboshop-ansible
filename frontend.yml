@@ -16,7 +16,8 @@
         state: present
 
     - name: Placing the nginx.conf
-      ansible.builtin.copy:
+#      ansible.builtin.copy:  --> Copy just copy the files, so we change it to template to we can pass variables in the cmd line and use loops/conditions in templates
+      ansible.builtin.template:
         src: nginx.conf
         dest: /etc/nginx/nginx.conf
 
