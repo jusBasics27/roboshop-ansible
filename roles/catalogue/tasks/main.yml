@@ -33,10 +33,3 @@
 
 
 
-#    printHeading " Connect Catalogue and Mongodb "
-#    mongosh --host mongodb.waferhassan.online </app/db/master-data.js &>>$logFile
-#    statusCheck $?
-#
-#    printHeading "Restart Catalogue Service"
-#    systemctl restart catalogue &>>$logFile
-#    statusCheck $?
