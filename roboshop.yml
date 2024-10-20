@@ -1,0 +1,5 @@
+- name: Roboshop APp Playbook # changed the names from frontend.yml to frontend_trail.yml, since Roles are created
+  hosts: all
+  become: yes
+  roles:
+    - "{{ app_name }}"
