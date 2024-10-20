@@ -4,6 +4,36 @@
     set-prompt {{ app_name }}-{{ env }}
 
 
+- name: Disable Default Redis
+  ansible.builtin.shell:
+    dnf module disable redis -y
+
+- name: Enable Redis 7
+  ansible.builtin.shell:
+    dnf module enable redis:7 -y
+
+- name: Install Redis
+  ansible.builtin.dnf:
+    name: redis
+    state: installed
+
+- name: Update Redis Listen address
+  ansible.builtin.replace:
+    path: /etc/redis/redis.conf
+    regexp: '127.0.0.1'
+    replace: '0.0.0.0'
+
+- name: Disable protection
+  ansible.builtin.lineinfile:
+    path: /etc/redis/redis.conf
+    regexp: 'protected-mode'
+    line: protected-mode no
+
+- name: Start Application Service
+  ansible.builtin.systemd_service:
+    name: "{{ app_name }}"
+    state: restarted
+    enabled: yes
 
 
 
@@ -14,26 +44,3 @@
 
 
 
-
-
-
-#printHeading "Disable Default Redis"
-#dnf module disable redis -y &>>$logFile
-#statusCheck $?
-#
-#printHeading "Enable Redis 7 Version"
-#dnf module enable redis:7 -y &>>$logFile
-#statusCheck $?
-#
-#printHeading "Install Redis"
-#dnf install redis -y &>>$logFile
-#statusCheck $?
-#
-#printHeading "Update Redis Listen address and Disable protection"
-#sed -i -e 's/127.0.0.1/0.0.0.0/' -e '/protected-mode/ c protected-mode no' /etc/redis/redis.conf &>>$logFile
-#statusCheck $?
-#
-#printHeading "Start Redis Service"
-#systemctl enable redis &>>$logFile
-#systemctl restart redis &>>$logFile
-#statusCheck $?
