@@ -1,0 +1,42 @@
+- name: Set prompt
+  ansible.builtin.shell:
+    set-prompt {{ app_name }}-{{ env }}
+
+- name: Copy the mongo repo
+  ansible.builtin.copy:
+    src: mongo.repo
+    dest: /etc/yum.repos.d/mongo.repo
+
+- name: Load NodeJs
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: nodejs
+
+- name: Install Mongodb
+  ansible.builtin.dnf:
+    name: mongodb-mongosh
+    state: installed
+
+- name: Load Master Data
+  ansible.builtin.shell: mongosh --host mongodb-{{ env }}.rdevopsb81.online </app/db/master-data.js
+
+- name: Restart Catalogue Service
+  ansible.builtin.systemd_service:
+    name: catalogue
+    state: restarted
+
+
+
+
+
+
+
+
+
+#    printHeading " Connect Catalogue and Mongodb "
+#    mongosh --host mongodb.waferhassan.online </app/db/master-data.js &>>$logFile
+#    statusCheck $?
+#
+#    printHeading "Restart Catalogue Service"
+#    systemctl restart catalogue &>>$logFile
+#    statusCheck $?
