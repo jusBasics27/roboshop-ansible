@@ -1,0 +1,8 @@
+- name: Set Prompt
+  ansible.builtin.shell:
+    set-prompt {{ app_name }}-{{ env }}
+
+- name: Install Nodejs
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: nodejs
