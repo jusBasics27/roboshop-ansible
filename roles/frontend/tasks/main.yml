@@ -9,7 +9,7 @@
 - name: Install nginx
   ansible.builtin.dnf:
     name: nginx
-    state: present
+    state: installed
 
 - name: Placing the nginx.conf
   #      ansible.builtin.copy:  --> Copy just copy the files, so we change it to template to we can pass variables in the cmd line and use loops/conditions in templates
