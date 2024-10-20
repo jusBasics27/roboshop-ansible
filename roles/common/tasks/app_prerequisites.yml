@@ -10,7 +10,7 @@
 
 - name:  Download the dev code and extract it
   ansible.builtin.unarchive:
-    src: https://roboshop-artifacts.s3.amazonaws.com/$appName-v3.zip
+    src: https://roboshop-artifacts.s3.amazonaws.com/{{ app_Name }}-v3.zip
     dest: /app
     remote_src: yes
 
