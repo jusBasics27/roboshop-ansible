@@ -1,12 +1,12 @@
 - name: Copy Dispatch Service file
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: dispatch.service
     dest: /etc/systemd/system/dispatch.service
 
 - name: Install goLand
   ansible.builtin.dnf:
     name: golang
-    state:  installed
+    state: installed
 
 - name: Load app prerequisites
   ansible.builtin.include_role:
