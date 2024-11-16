@@ -1,4 +1,9 @@
-- name: Load NodeJS
+#- name: Load NodeJS
+#  ansible.builtin.include_role:
+#    name: common
+#    tasks_from: nodejs
+
+- name: Install Docker
   ansible.builtin.include_role:
     name: common
-    tasks_from: nodejs
+    tasks_from: docker
